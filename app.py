@@ -5,7 +5,7 @@ from rdflib.namespace import RDF, FOAF, OWL, RDFS, DCTERMS
 from string import Template
 from flask import Flask, escape, request, render_template
 app = Flask(__name__)
-
+from markupsafe import Markup
 
     
 @app.route('/')
@@ -32,7 +32,7 @@ def index():
 	
 	return render_template('ttl.html', title="title",
 	description="description",
-	classes=classes,
+	classes=Markup(classes),
 	properties="properties",
 	namespaces="namespaces",
 	makers="TK makers")
