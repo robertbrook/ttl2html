@@ -38,11 +38,18 @@ def index():
 
 	properties = ''.join(properties)
 	
+	namespaces = []
+
+	for namespace in g.namespaces():
+		namespaces.append(f'<p><strong>{namespace[0]}</strong> {namespace[1]}</p>')
+
+	namespaces = ''.join(namespaces)
+	
 	return render_template('ttl.html', title="title",
 	description="description",
 	classes=Markup(classes),
 	properties=Markup(properties),
-	namespaces="namespaces",
+	namespaces=Markup(namespaces),
 	makers="TK makers")
 
 if __name__ == "__main__":
