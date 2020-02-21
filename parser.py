@@ -31,6 +31,14 @@ makers = []
 for s, p, o in g.triples((None, RDF.type, OWL.Ontology)):
     title = g.value(s, DCTERMS.title)
     description = g.value(s, DCTERMS.description)
+    makers = g.objects(s, FOAF.maker)
+    
+#     for s, p, o in g.triples((None, FOAF['name'], None)):
+#     	print(s, o)
+    
+    for foafname in g.objects(None, FOAF.name):
+    	print(foafname)
+    
 
 makers = ''.join(makers)
 

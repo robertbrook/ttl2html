@@ -46,7 +46,13 @@ def index():
 
 	namespaces = ''.join(namespaces)
 	
-	makers = []
+	foafnames = []
+	
+	for foafname in g.objects(None, FOAF.name):
+		print(foafname)
+		foafnames.append(f'<p class="">{foafname}</p>')
+		
+	foafnames = ''.join(foafnames)
 
 	for s, p, o in g.triples((None, RDF.type, OWL.Ontology)):
 		title = g.value(s, DCTERMS.title)
@@ -54,9 +60,8 @@ def index():
 		created = g.value(s, DCTERMS.created)
 		rights = g.value(s, DCTERMS.rights)
 		depiction = g.value(s, FOAF.depiction) or "" # check
-		makers = g.value(s, FOAF.maker) or "" # check
+		# makers = g.value(s, FOAF.maker) or "" # check
 
-	makers = ''.join(makers)
 	
 	return render_template('ttl.html', 
 	title=Markup(title),
@@ -67,7 +72,7 @@ def index():
 	classes=Markup(classes),
 	properties=Markup(properties),
 	namespaces=Markup(namespaces),
-	makers=Markup(makers)
+	foafnames=Markup(foafnames)
 	)
 
 if __name__ == "__main__":
