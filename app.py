@@ -53,8 +53,8 @@ def index():
 		description = g.value(s, DCTERMS.description)
 		created = g.value(s, DCTERMS.created)
 		rights = g.value(s, DCTERMS.rights)
-		depiction = g.value(s, FOAF.depiction)
-		makers = g.value(s, FOAF.maker)
+		depiction = g.value(s, FOAF.depiction) or "" # check
+		makers = g.value(s, FOAF.maker) or "" # check
 
 	makers = ''.join(makers)
 	
