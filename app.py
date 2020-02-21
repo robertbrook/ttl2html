@@ -25,7 +25,7 @@ def index():
 		subClassNote = ""
 		if isSubClass is not None:
 			subClassNote = f"<p>This class is a <strong>subclass</strong> of {g.value(s, RDFS.subClassOf)}.</p>"
-		h3id = g.label(s).lower.replace(" ", "-")
+		h3id = g.label(s).lower().replace(" ", "-")
 		classes.append(f'<article class="class"><h3 id="{h3id}">{g.label(s)}</h3> <p>{g.value(s, RDFS.comment)}</p>{subClassNote}</article>')
 
 	classes = ''.join(classes)
@@ -33,7 +33,7 @@ def index():
 	properties = []
 
 	for s, p, o in g.triples((None, RDF.type, OWL.ObjectProperty)):
-		h3id = g.label(s).lower.replace(" ", "-")
+		h3id = g.label(s).lower().replace(" ", "-")
 		properties.append(
 			f'<article class="property"><h3 id="{h3id}">{g.label(s)}</h3> <p>{g.value(s, RDFS.comment)}</p> <p>This object property has the <strong>domain</strong> {g.value(s, RDFS.domain)}</p><p>The object property is in the <strong>range</strong> {g.value(s, RDFS.range)}</p></article>')
 
