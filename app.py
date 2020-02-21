@@ -54,6 +54,7 @@ def index():
 		created = g.value(s, DCTERMS.created)
 		rights = g.value(s, DCTERMS.rights)
 		depiction = g.value(s, FOAF.depiction)
+		makers = g.value(s, FOAF.maker)
 
 	makers = ''.join(makers)
 	
@@ -66,7 +67,8 @@ def index():
 	classes=Markup(classes),
 	properties=Markup(properties),
 	namespaces=Markup(namespaces),
-	makers="TK makers")
+	makers=Markup(makers)
+	)
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 5000))
