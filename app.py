@@ -30,10 +30,18 @@ def index():
 
 	classes = ''.join(classes)
 	
+	properties = []
+
+	for s, p, o in g.triples((None, RDF.type, OWL.ObjectProperty)):
+		properties.append(
+			f'<article><h3>{g.label(s)}</h3> <p>{g.value(s, RDFS.comment)}</p> <p>This object property has the <strong>domain</strong> {g.value(s, RDFS.domain)}</p><p>The object property is in the <strong>range</strong> {g.value(s, RDFS.range)}</p></article>')
+
+	properties = ''.join(properties)
+	
 	return render_template('ttl.html', title="title",
 	description="description",
 	classes=Markup(classes),
-	properties="properties",
+	properties=Markup(properties),
 	namespaces="namespaces",
 	makers="TK makers")
 
