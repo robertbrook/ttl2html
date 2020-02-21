@@ -16,7 +16,11 @@ article {margin: 2rem auto;}
 
 <p>{{ description }}</p>
 
-{{ makers }}
+<time>Created {{ created }}</time>
+
+<p><img src="{{ depiction }}"></p>
+
+<p>{{ makers }}</p>
 </header>
 <main>
 
@@ -34,6 +38,8 @@ article {margin: 2rem auto;}
 {{ namespaces }}
 
 </main>
-<footer>{{ ttlurl }}</footer>
+<footer><p>{{ rights }}</p>
+
+<p>{{ ttlurl }}</p></footer>
 </body>
 </html>

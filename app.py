@@ -51,12 +51,18 @@ def index():
 	for s, p, o in g.triples((None, RDF.type, OWL.Ontology)):
 		title = g.value(s, DCTERMS.title)
 		description = g.value(s, DCTERMS.description)
+		created = g.value(s, DCTERMS.created)
+		rights = g.value(s, DCTERMS.rights)
+		depiction = g.value(s, FOAF.depiction)
 
 	makers = ''.join(makers)
 	
 	return render_template('ttl.html', 
 	title=Markup(title),
+	created=Markup(created),
+	rights=Markup(rights),
 	description=Markup(description),
+	depiction=Markup(depiction),
 	classes=Markup(classes),
 	properties=Markup(properties),
 	namespaces=Markup(namespaces),
