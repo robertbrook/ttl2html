@@ -45,8 +45,17 @@ def index():
 
 	namespaces = ''.join(namespaces)
 	
-	return render_template('ttl.html', title="title",
-	description="description",
+	makers = []
+
+	for s, p, o in g.triples((None, RDF.type, OWL.Ontology)):
+		title = g.value(s, DCTERMS.title)
+		description = g.value(s, DCTERMS.description)
+
+	makers = ''.join(makers)
+	
+	return render_template('ttl.html', 
+	title=Markup(title),
+	description=Markup(description),
 	classes=Markup(classes),
 	properties=Markup(properties),
 	namespaces=Markup(namespaces),
