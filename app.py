@@ -25,23 +25,24 @@ def index():
 		subClassNote = ""
 		if isSubClass is not None:
 			subClassNote = f"<p>This class is a <strong>subclass</strong> of {g.value(s, RDFS.subClassOf)}.</p>"
-
-		classes.append(f'<article><h3>{g.label(s)}</h3> <p>{g.value(s, RDFS.comment)}</p>{subClassNote}</article>')
+		# ID
+		classes.append(f'<article class="class"><h3 id="">{g.label(s)}</h3> <p>{g.value(s, RDFS.comment)}</p>{subClassNote}</article>')
 
 	classes = ''.join(classes)
 	
 	properties = []
 
 	for s, p, o in g.triples((None, RDF.type, OWL.ObjectProperty)):
+		# ID
 		properties.append(
-			f'<article><h3>{g.label(s)}</h3> <p>{g.value(s, RDFS.comment)}</p> <p>This object property has the <strong>domain</strong> {g.value(s, RDFS.domain)}</p><p>The object property is in the <strong>range</strong> {g.value(s, RDFS.range)}</p></article>')
+			f'<article class="property"><h3 id="">{g.label(s)}</h3> <p>{g.value(s, RDFS.comment)}</p> <p>This object property has the <strong>domain</strong> {g.value(s, RDFS.domain)}</p><p>The object property is in the <strong>range</strong> {g.value(s, RDFS.range)}</p></article>')
 
 	properties = ''.join(properties)
 	
 	namespaces = []
 
 	for namespace in g.namespaces():
-		namespaces.append(f'<p><strong>{namespace[0]}</strong> {namespace[1]}</p>')
+		namespaces.append(f'<p class="namespace"><strong>{namespace[0]}</strong> {namespace[1]}</p>')
 
 	namespaces = ''.join(namespaces)
 	
