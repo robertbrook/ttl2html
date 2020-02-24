@@ -7,7 +7,7 @@ from flask import Flask, escape, request, render_template
 app = Flask(__name__)
 from markupsafe import Markup
 
-    
+
 @app.route('/')
 def index():
 
@@ -36,8 +36,10 @@ def index():
 		h3id = g.label(s).lower().replace(" ", "-")
 		domainstub = g.value(s, RDFS.domain).split('/')[-1]
 		rangestub = g.value(s, RDFS.range).split('/')[-1]
+		# rangestub = g.value(s, RDFS.range).n3(g.namespace_manager)
+
 		properties.append(
-			f'<article class="property"><h3 id="{h3id}">{g.label(s)}</h3><p>{domainstub} (domain) &rarr; {g.label(s)} &rarr; {rangestub} (range)</p><p>{g.value(s, RDFS.comment)}</p></article>')
+			f'<article class="property"><h3 id="{h3id}">{g.label(s)}</h3><p>{domainstub} (domain) &rarr; {g.label(s)} (property) &rarr; {rangestub} (range)</p><p>{g.value(s, RDFS.comment)}</p></article>')
 
 	properties = ''.join(properties)
 	
@@ -62,7 +64,9 @@ def index():
 		rights = g.value(s, DCTERMS.rights)
 		depiction = g.value(s, FOAF.depiction) or "" # check
 		# makers = g.value(s, FOAF.maker) or "" # check
-
+	
+# 	for foafhomepage in g.objects(None, FOAF.homepage):
+# 		print(foafhomepage)
 	
 	return render_template('ttl.html', 
 	title=Markup(title),
