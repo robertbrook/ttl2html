@@ -24,9 +24,12 @@ def index():
 		isSubClass = g.value(s, RDFS.subClassOf)
 		subClassNote = ""
 		if isSubClass is not None:
-			subClassNote = f"<p>This class is a <strong>subclass</strong> of {g.value(s, RDFS.subClassOf)}.</p>"
+			subclassstub = g.value(s, RDFS.subClassOf).split('/')[-1]
+			subClassNote = f"<p>{g.label(s)} (subclass) &larr; {subclassstub} (superclass)</p>"
+			
+			print(subclassstub)
 		h3id = g.label(s).lower().replace(" ", "-")
-		classes.append(f'<article class="class"><h3 id="{h3id}">{g.label(s)}</h3> <p>{g.value(s, RDFS.comment)}</p>{subClassNote}</article>')
+		classes.append(f'<article class="class"><h3 id="{h3id}">{g.label(s)}</h3> {subClassNote}<p>{g.value(s, RDFS.comment)}</p></article>')
 
 	classes = ''.join(classes)
 	
@@ -64,6 +67,11 @@ def index():
 		rights = g.value(s, DCTERMS.rights)
 		depiction = g.value(s, FOAF.depiction) or "" # check
 		# makers = g.value(s, FOAF.maker) or "" # check
+		
+		
+	for maker in g.objects(s, FOAF.maker):
+		for s,p,o in g.triples((maker,None,None)):
+			print(s,p,o)
 	
 # 	for foafhomepage in g.objects(None, FOAF.homepage):
 # 		print(foafhomepage)
