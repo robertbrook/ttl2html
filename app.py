@@ -85,7 +85,8 @@ def index():
 	classes=Markup(classes),
 	properties=Markup(properties),
 	namespaces=Markup(namespaces),
-	foafnames=Markup(foafnames)
+	foafnames=Markup(foafnames),
+	ttlurl=ttlurl
 	)
 
 if __name__ == "__main__":
