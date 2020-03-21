@@ -26,6 +26,10 @@ article {margin: 2rem auto;}
 
 <h2 id="classes">Classes</h2>
 <hr>
+{% for newclass in newclasses %}
+        <li>{{ newclass }}</li>
+    {% endfor %}
+    
 {{ classes }}
 
 <h2 id="properties">Object properties</h2>

@@ -18,6 +18,8 @@ def index():
 	
 	result = g.parse(data=requests.get(ttlurl).text, format="turtle")
 	
+	newclasses = []
+	
 	classes = []
 
 	for s, p, o in g.triples((None, RDF.type, OWL.Class)):
@@ -30,6 +32,7 @@ def index():
 			print(subclassstub)
 		h3id = g.label(s).lower().replace(" ", "-")
 		classes.append(f'<article class="class"><h3 id="{h3id}">{g.label(s)}</h3> {subClassNote}<p>{g.value(s, RDFS.comment)}</p></article>')
+		newclasses.append({h3id,g.label(s),subClassNote,g.value(s, RDFS.comment)})
 
 	classes = ''.join(classes)
 	
@@ -76,7 +79,7 @@ def index():
 # 	for foafhomepage in g.objects(None, FOAF.homepage):
 # 		print(foafhomepage)
 	
-	return render_template('ttl.html', 
+	return render_template('index.html', 
 	title=Markup(title),
 	created=Markup(created),
 	rights=Markup(rights),
@@ -86,7 +89,8 @@ def index():
 	properties=Markup(properties),
 	namespaces=Markup(namespaces),
 	foafnames=Markup(foafnames),
-	ttlurl=ttlurl
+	ttlurl=ttlurl,
+	newclasses=newclasses
 	)
 
 if __name__ == "__main__":
