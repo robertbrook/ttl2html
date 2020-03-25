@@ -23,13 +23,9 @@ article {margin: 2rem auto;}
 </header>
 <main>
 
-
 <h2 id="classes">Classes</h2>
 <hr>
-{% for newclass in newclasses %}
-        <li>{{ newclass }}</li>
-    {% endfor %}
-    
+
 {{ classes }}
 
 <h2 id="properties">Object properties</h2>
@@ -46,10 +42,27 @@ article {margin: 2rem auto;}
 <h2 id="foaf"><abbr>FOAF</abbr></h2>
 <hr>
 
-<ul>{{ foafnames }}</ul>
+<table>
+<tr>
+<th>Name</th>
+<th>Home page</th>
+</tr>
+{% for maker in makers %}
+
+        <tr>
+        <td>{{ maker.name|e }}</td> 
+        <td>
+        {% if maker.homepage|e != "None" %}
+        <a href="{{ maker.homepage|e }}">{{ maker.homepage|e }}</a>
+        
+        {% endif %}</td> 
+        </tr>
+
+    {% endfor %}
+    </table>
 
 <p id="copyright">&copy; {{ rights }}</p>
 
-<p id="url">{{ ttlurl }}</p></footer>
+<p id="url">Source: <a href="{{ ttlurl }}">{{ ttlurl }}</a></p></footer>
 </body>
 </html>
