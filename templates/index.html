@@ -42,24 +42,17 @@ article {margin: 2rem auto;}
 <h2 id="foaf"><abbr>FOAF</abbr></h2>
 <hr>
 
-<table>
-<tr>
-<th>Name</th>
-<th>Home page</th>
-</tr>
+<ul>
 {% for maker in makers %}
 
-        <tr>
-        <td>{{ maker.name|e }}</td> 
-        <td>
+<li>{{ maker.name|e }}
         {% if maker.homepage|e != "None" %}
         <a href="{{ maker.homepage|e }}">{{ maker.homepage|e }}</a>
         
-        {% endif %}</td> 
-        </tr>
+        {% endif %}</li> 
 
     {% endfor %}
-    </table>
+    </ul>
 
 <p id="copyright">&copy; {{ rights }}</p>
 
