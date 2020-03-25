@@ -55,9 +55,7 @@ def index():
     namespaces = []
 
     for namespace in g.namespaces():
-        namespaces.append(f'<p class="namespace"><strong>{namespace[0]}</strong> {namespace[1]}</p>')
-
-    namespaces = ''.join(namespaces)
+        namespaces.append(namespace)
     
     foafnames = []
     
@@ -104,11 +102,11 @@ def index():
     depiction=Markup(depiction),
     classes=Markup(classes),
     properties=Markup(properties),
-    namespaces=Markup(namespaces),
     foafnames=Markup(foafnames),
     ttlurl=ttlurl,
     newclasses=newclasses,
-    makers    =   makers
+    namespaces=namespaces,
+    makers = makers
     )
 
 if __name__ == "__main__":

@@ -18,15 +18,25 @@ article {margin: 2rem auto;}
 
 <time id="created">Created {{ created }}</time>
 
-<p id="depiction"><img src="{{ depiction }}"></p>
+<p><img id="depiction" src="{{ depiction }}"></p>
 
 </header>
 <main>
+
+<h2 id="classes">nClasses</h2>
+<hr>
+
+{% for class in newclasses %}
+
+
+{% endfor %}
 
 <h2 id="classes">Classes</h2>
 <hr>
 
 {{ classes }}
+
+
 
 <h2 id="properties">Object properties</h2>
 <hr>
@@ -34,7 +44,12 @@ article {margin: 2rem auto;}
 
 <h2 id="namespaces">Namespaces</h2>
 <hr>
-{{ namespaces }}
+
+{% for namespace in namespaces %}
+
+<p class="namespace"><strong>{{ namespace.0 }}</strong> {{ namespace.1 }}</p>
+
+{% endfor %}
 
 </main>
 <footer>
