@@ -69,8 +69,8 @@ article {margin: 2rem auto;}
     {% endfor %}
     </ul>
 
-<p id="copyright">&copy; {{ rights }}</p>
+<p id="copyright">&copy; {{ rights|e }}</p>
 
-<p id="url">Source: <a href="{{ ttlurl }}">{{ ttlurl }}</a></p></footer>
+<p id="url">Source: <a href="{{ ttlurl }}">{{ ttlurl|e }}</a></p></footer>
 </body>
 </html>
