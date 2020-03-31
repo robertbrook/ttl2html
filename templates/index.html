@@ -57,8 +57,12 @@
 <article>
 <h3><span class="subhead">Class</span> {{ class.label }}</h3>
 
-{% if class.superclass %}
-<p>{{ class.label }} (subclass) &larr; {{ class.superclass }} (superclass)</p>
+{% if class.superclasses %}
+<ul>
+{% for superclass in class.superclasses %}
+<li>{{ class.label }} (class) &rarr; (is a subclass of) &rarr; {{ superclass }} (superclass)</li>
+{% endfor %}
+</ul>
 {% endif %}
 
 {% if class.comment %}
