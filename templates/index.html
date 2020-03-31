@@ -43,7 +43,9 @@
 <main>
 <h1 id="title">{{ title }}</h1>
 
+{% if description != "None" %}
 <p id="description">{{ description }}</p>
+{% endif %}
 
 {% if depiction %}
 <p><img id="depiction" src="{{ depiction }}"></p>
@@ -59,7 +61,9 @@
 <p>{{ class.label }} (subclass) &larr; {{ class.superclass }} (superclass)</p>
 {% endif %}
 
+{% if class.comment %}
 {{ class.comment }}
+{% endif %}
 </article>
 {% endfor %}
 
@@ -77,10 +81,12 @@
 {% endfor %}
 
 
+
+{% if makers %}
+
 <h2 id="foaf"><abbr>FOAF</abbr></h2>
-
-
-<ul>
+ 
+ <ul>
 {% for maker in makers %}
 
 <li>{{ maker.name|e }}
@@ -91,6 +97,9 @@
 
     {% endfor %}
     </ul>
+
+{% endif %}
+
 
 <time id="created">Created {{ created }}</time>
 
