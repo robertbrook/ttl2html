@@ -1,9 +1,12 @@
 
 article {
 margin:2rem 0;
+background-color:#efefef;
+padding:1rem;
+/* border:thin dotted gray; */
 }
 
-
+/* h3 {margin-top:0;} */
 form.local input[type=text] {display:inline;width:100%;}
 
 form.local input[type=submit] {display:inline; border:1pt solid black;}

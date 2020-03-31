@@ -24,24 +24,20 @@ def index():
 	classes = []
 
 	for s, p, o in g.triples((None, RDF.type, OWL.Class)):
-		isSubClass = g.value(s, RDFS.subClassOf)
-# 		print(isSubClass)
+# 		isSubClass = g.value(s, RDFS.subClassOf)
 		
 		superclasses = []
 		
 		superclassobjects = g.objects(s, RDFS.subClassOf)
 		for superclassobject in superclassobjects:
 			superclasses.append(superclassobject.split('/')[-1])
-			
-		superclass = ""
-		if isSubClass is not None:
-			superclass = g.value(s, RDFS.subClassOf).split('/')[-1]			
-# 			print(superclass)
+
 		h3id = g.label(s).lower().replace(" ", "-")
 #		  classes.append(f'<article class="class"><h3 id="{h3id}">{g.label(s)}</h3> {subClassNote}<p>{g.value(s, RDFS.comment)}</p></article>')
-		classes.append({'label':g.label(s), 'comment':g.value(s, RDFS.comment), 'superclass':superclass, 'superclasses':superclasses})
+		classes.append({'label':g.label(s), 'comment':g.value(s, RDFS.comment), 'superclasses':superclasses})
 	
 	properties = []
+	objectproperties = []
 
 	for s, p, o in g.triples((None, RDF.type, OWL.ObjectProperty)):
 		h3id = g.label(s).lower().replace(" ", "-")
@@ -49,8 +45,8 @@ def index():
 		rangestub = g.value(s, RDFS.range).split('/')[-1]
 		# rangestub = g.value(s, RDFS.range).n3(g.namespace_manager)
 
-		properties.append(
-			f'<article class="property"><h3 id="{h3id}">{g.label(s)}</h3><p>{domainstub} (domain) &rarr; {g.label(s)} (property) &rarr; {rangestub} (range)</p><p>{g.value(s, RDFS.comment)}</p></article>')
+# 		properties.append(f'<article class="property"><h3 id="{h3id}">{g.label(s)}</h3><ul><li>{domainstub} (domain) &rarr; {g.label(s)} (property) &rarr; {rangestub} (range)</li></ul><p>{g.value(s, RDFS.comment)}</p></article>')
+		objectproperties.append({'label':g.label(s), 'domain':domainstub, 'range':rangestub, 'comment':g.value(s, RDFS.comment)})
 
 	properties = ''.join(properties)
 	
@@ -103,9 +99,9 @@ def index():
 	description=Markup(description),
 	depiction=Markup(depiction),
 	properties=Markup(properties),
-	foafnames=Markup(foafnames),
 	ttlurl=ttlurl,
 	classes=classes,
+	objectproperties=objectproperties,
 	namespaces=namespaces,
 	makers = makers
 	)

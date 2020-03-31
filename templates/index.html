@@ -73,7 +73,19 @@
 
 <h2 id="properties">Object properties</h2>
 
-{{ properties }}
+{% for objectproperty in objectproperties %}
+
+<article>
+<h3><span class="subhead">Property</span> {{ objectproperty.label }}</h3>
+
+<ul><li>{{ objectproperty.domain }} (domain) &rarr; {{ objectproperty.label }} (property) &rarr; {{ objectproperty.range }} (range)</li></ul>
+
+{% if objectproperty.comment %}
+<p>{{ objectproperty.comment }}</p>
+{% endif %}
+
+</article>
+{% endfor %}
 
 <h2 id="namespaces">Namespaces</h2>
 
