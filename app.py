@@ -14,30 +14,24 @@ app.jinja_options['extensions'].append('jinja2.ext.debug')
 def index():
 
     ttlurl = request.args.get('ttlurl', "https://raw.githubusercontent.com/ukparliament/ontologies/master/procedure/procedure-ontology.ttl")
-    
+
     ppr = rdflib.Namespace("http://parliament.uk/ontologies/procedure/")
     g = rdflib.Graph()
     
     result = g.parse(data=requests.get(ttlurl).text, format="turtle")
     
-    newclasses = []
     
     classes = []
 
     for s, p, o in g.triples((None, RDF.type, OWL.Class)):
-        # newclasses.append({g.label(s), p, o})
         isSubClass = g.value(s, RDFS.subClassOf)
-        subClassNote = ""
+        superclass = ""
         if isSubClass is not None:
-            subclassstub = g.value(s, RDFS.subClassOf).split('/')[-1]
-            subClassNote = f"<p>{g.label(s)} (subclass) &larr; {subclassstub} (superclass)</p>"
-            
-            print(subclassstub)
+            superclass = g.value(s, RDFS.subClassOf).split('/')[-1]      	
+            print(superclass)
         h3id = g.label(s).lower().replace(" ", "-")
-        classes.append(f'<article class="class"><h3 id="{h3id}">{g.label(s)}</h3> {subClassNote}<p>{g.value(s, RDFS.comment)}</p></article>')
-        
-
-    classes = ''.join(classes)
+#         classes.append(f'<article class="class"><h3 id="{h3id}">{g.label(s)}</h3> {subClassNote}<p>{g.value(s, RDFS.comment)}</p></article>')
+        classes.append({'label':g.label(s), 'comment':g.value(s, RDFS.comment), 'superclass':superclass})
     
     properties = []
 
@@ -100,11 +94,10 @@ def index():
     rights=Markup(rights),
     description=Markup(description),
     depiction=Markup(depiction),
-    classes=Markup(classes),
     properties=Markup(properties),
     foafnames=Markup(foafnames),
     ttlurl=ttlurl,
-    newclasses=newclasses,
+    classes=classes,
     namespaces=namespaces,
     makers = makers
     )

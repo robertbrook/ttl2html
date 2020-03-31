@@ -1,4 +1,3 @@
-/* MVP.css v1.1 - https://github.com/andybrewer/mvp */
 
 :root {
     --border-radius: 5px;
@@ -361,7 +360,6 @@ table tr td:first-child {
     text-align: var(--justify-normal);
 }
 
-/* Quotes */
 blockquote {
     display: block;
     font-size: x-large;
@@ -380,4 +378,3 @@ blockquote footer {
     padding: 1.5rem 0;
 }
 
-/* Custom styles */

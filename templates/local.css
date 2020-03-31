@@ -1,0 +1,13 @@
+
+article {
+margin:2rem 0;
+}
+
+
+form.local input[type=text] {display:inline;width:100%;}
+
+form.local input[type=submit] {display:inline; border:1pt solid black;}
+
+h3 span.subhead {font-weight:normal;padding-right:0.25rem;}
+
+/* img#depiction {border:1pt dotted gray;padding:1.5rem;} */
