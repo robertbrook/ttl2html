@@ -50,10 +50,14 @@ def index():
 		h3id = g.label(s).lower().replace(" ", "-")
 		domainstub = g.value(s, RDFS.domain).split('/')[-1]
 		rangestub = g.value(s, RDFS.range).split('/')[-1]
-		# rangestub = g.value(s, RDFS.range).n3(g.namespace_manager)
+		superpropertyv = g.value(s, RDFS.subPropertyOf)
+		if superpropertyv:
+			superproperty = g.value(s, RDFS.subPropertyOf).split('/')[-1]
+		else:
+			superproperty = ""
 
 # 		properties.append(f'<article class="property"><h3 id="{h3id}">{g.label(s)}</h3><ul><li>{domainstub} (domain) &rarr; {g.label(s)} (property) &rarr; {rangestub} (range)</li></ul><p>{g.value(s, RDFS.comment)}</p></article>')
-		objectproperties.append({'label':g.label(s), 'domain':domainstub, 'range':rangestub, 'comment':g.value(s, RDFS.comment)})
+		objectproperties.append({'label':g.label(s), 'domain':domainstub, 'range':rangestub, 'superproperty':superproperty, 'comment':g.value(s, RDFS.comment)})
 
 	for s, p, o in g.triples((None, RDF.type, OWL.Ontology)):
 		title = g.value(s, DCTERMS.title)

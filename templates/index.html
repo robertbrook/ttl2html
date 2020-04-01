@@ -86,6 +86,10 @@
 
 <p>Domain <strong>{{ objectproperty.domain }}</strong> &rarr; Object property <strong>{{ objectproperty.label }}</strong> &rarr; Range <strong>{{ objectproperty.range }}</strong></p>
 
+{% if objectproperty.superproperty %}
+<p>Object property <strong>{{ objectproperty.label }}</strong> &rarr; is a subproperty of &rarr; Object property <strong>{{ objectproperty.superproperty }}</strong></p>
+{% endif %}
+
 {% if objectproperty.comment %}
 <p>{{ objectproperty.comment }}</p>
 {% endif %}
