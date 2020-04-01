@@ -82,9 +82,9 @@
 {% for objectproperty in objectproperties|sort(attribute='label') %}
 
 <article class="property">
-<h3><span class="subhead">Property</span> {{ objectproperty.label }}</h3>
+<h3><span class="subhead">Object property</span> {{ objectproperty.label }}</h3>
 
-<p>Domain <strong>{{ objectproperty.domain }}</strong> &rarr; Property <strong>{{ objectproperty.label }}</strong> &rarr; Range <strong>{{ objectproperty.range }}</strong></p>
+<p>Domain <strong>{{ objectproperty.domain }}</strong> &rarr; Object property <strong>{{ objectproperty.label }}</strong> &rarr; Range <strong>{{ objectproperty.range }}</strong></p>
 
 {% if objectproperty.comment %}
 <p>{{ objectproperty.comment }}</p>
