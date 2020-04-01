@@ -11,17 +11,19 @@ app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.debug')
 app.secret_key = b'*Y}P;s$&9*hDVw&f4KyXR,v.]cG/m_x>&9TQQ?:t!"'
 
+fallback_url = "https://raw.githubusercontent.com/ukparliament/ontologies/master/procedure/procedure-ontology.ttl"
+
 @app.route('/')
 def index():
 
-	ttlurl = request.args.get('ttlurl', "https://raw.githubusercontent.com/ukparliament/ontologies/master/procedure/procedure-ontology.ttl")
+	ttlurl = request.args.get('ttlurl', fallback_url)
 	
 	if not ttlurl.startswith("https://raw.githubusercontent.com/ukparliament/ontologies/"):
-		ttlurl = "https://raw.githubusercontent.com/ukparliament/ontologies/master/procedure/procedure-ontology.ttl"
+		ttlurl = fallback_url
 		flash("Sorry: ttl2html needs an address it recognises. Here's the Procedure Ontology instead.")
 		
 	if not ttlurl.endswith(".ttl"):
-		ttlurl = "https://raw.githubusercontent.com/ukparliament/ontologies/master/procedure/procedure-ontology.ttl"
+		ttlurl = fallback_url
 		flash("Sorry: ttl2html needs a .ttl file it recognises. Here's the Procedure Ontology instead.")
 
 	ppr = rdflib.Namespace("http://parliament.uk/ontologies/procedure/")
@@ -53,29 +55,12 @@ def index():
 # 		properties.append(f'<article class="property"><h3 id="{h3id}">{g.label(s)}</h3><ul><li>{domainstub} (domain) &rarr; {g.label(s)} (property) &rarr; {rangestub} (range)</li></ul><p>{g.value(s, RDFS.comment)}</p></article>')
 		objectproperties.append({'label':g.label(s), 'domain':domainstub, 'range':rangestub, 'comment':g.value(s, RDFS.comment)})
 
-	
-	namespaces = []
-
-	for namespace in g.namespaces():
-		namespaces.append(namespace)
-	
-	foafnames = []
-	
-	for foafname in g.objects(None, FOAF.name):
-		
-		foafnames.append(f'<li class="name">{foafname}</li>')
-		
-	foafnames = ''.join(foafnames)
-
 	for s, p, o in g.triples((None, RDF.type, OWL.Ontology)):
 		title = g.value(s, DCTERMS.title)
 		description = g.value(s, DCTERMS.description)
 		created = g.value(s, DCTERMS.created)
 		rights = g.value(s, DCTERMS.rights)
-		depiction = g.value(s, FOAF.depiction) or "" # check
-		# makers = g.value(s, FOAF.maker) or "" # check
-		
-	newfoafnames = []
+		depiction = g.value(s, FOAF.depiction) or "" # check		
 	
 	foafmakerids = []
 	
@@ -105,7 +90,7 @@ def index():
 	ttlurl=ttlurl,
 	classes=classes,
 	objectproperties=objectproperties,
-	namespaces=namespaces,
+	namespaces=g.namespaces(),
 	makers = makers
 	)
 
