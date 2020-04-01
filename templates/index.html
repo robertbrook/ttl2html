@@ -52,7 +52,7 @@
 
 <h2 id="classes">Classes</h2>
 
-{% for class in classes %}
+{% for class in classes|sort(attribute='label') %}
 <article>
 <h3><span class="subhead">Class</span> {{ class.label }}</h3>
 
@@ -72,7 +72,7 @@
 
 <h2 id="properties">Object properties</h2>
 
-{% for objectproperty in objectproperties %}
+{% for objectproperty in objectproperties|sort(attribute='label') %}
 
 <article>
 <h3><span class="subhead">Property</span> {{ objectproperty.label }}</h3>
@@ -89,7 +89,7 @@
 <h2 id="namespaces">Namespaces</h2>
 
 
-{% for namespace in namespaces %}
+{% for namespace in namespaces|sort(attribute='0') %}
 
 <p class="namespace"><strong>{{ namespace.0 }}</strong> {{ namespace.1 }}</p>
 
@@ -102,7 +102,7 @@
 <h2 id="foaf"><abbr>FOAF</abbr></h2>
  
  <ul>
-{% for maker in makers %}
+{% for maker in makers|sort(attribute='name') %}
 
 <li>{{ maker.name|e }}
         {% if maker.homepage|e != "None" %}
