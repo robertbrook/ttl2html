@@ -574,6 +574,8 @@ form.local input[type=text] {display:inline;width:100%;}
 
 form.local input[type=submit] {display:inline; border:1pt solid black;}
 
+h1 {font-weight:normal;}
+
 h2 {font-weight:normal;}
 
 h3 span.subhead {font-weight:normal;0.25rem;color:gray;}
