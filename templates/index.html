@@ -34,9 +34,18 @@
       <input type="text" name="ttlurl" value="{{ ttlurl }}">
       <input type="submit" value="Generate HTML">
       </form>
+</p>
+
+{% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <p>
+               {% for message in messages %}
+               <strong>{{ message }}</strong>
+               {% endfor %}
+            </p>
+         {% endif %}
+      {% endwith %}
       
-      
-      </p>
 </header>
 
 <main>
@@ -53,19 +62,19 @@
 <h2 id="classes">Classes</h2>
 
 {% for class in classes|sort(attribute='label') %}
-<article>
+<article class="class">
 <h3><span class="subhead">Class</span> {{ class.label }}</h3>
 
 {% if class.superclasses %}
-<ul>
+
 {% for superclass in class.superclasses %}
-<li>{{ class.label }} (class) &rarr; (is a subclass of) &rarr; {{ superclass }} (superclass)</li>
+<p>Class <strong>{{ class.label }}</strong> &rarr; is a subclass of &rarr; Superclass <strong>{{ superclass }}</strong></p>
 {% endfor %}
-</ul>
+
 {% endif %}
 
 {% if class.comment %}
-{{ class.comment }}
+<p>{{ class.comment }}</p>
 {% endif %}
 </article>
 {% endfor %}
@@ -74,10 +83,10 @@
 
 {% for objectproperty in objectproperties|sort(attribute='label') %}
 
-<article>
+<article class="property">
 <h3><span class="subhead">Property</span> {{ objectproperty.label }}</h3>
 
-<ul><li>{{ objectproperty.domain }} (domain) &rarr; {{ objectproperty.label }} (property) &rarr; {{ objectproperty.range }} (range)</li></ul>
+<p>Domain <strong>{{ objectproperty.domain }}</strong> &rarr; Property <strong>{{ objectproperty.label }}</strong> &rarr; Range <strong>{{ objectproperty.range }}</strong></p>
 
 {% if objectproperty.comment %}
 <p>{{ objectproperty.comment }}</p>
@@ -101,10 +110,10 @@
 
 <h2 id="foaf"><abbr>FOAF</abbr></h2>
  
- <ul>
+ <ul id="makers">
 {% for maker in makers|sort(attribute='name') %}
 
-<li>{{ maker.name|e }}
+<li class="maker">{{ maker.name|e }}
         {% if maker.homepage|e != "None" %}
         &mdash; <a href="{{ maker.homepage|e }}">{{ maker.homepage|e }}</a>
         

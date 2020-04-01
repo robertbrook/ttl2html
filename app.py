@@ -4,28 +4,34 @@ import requests
 
 from rdflib.namespace import RDF, FOAF, OWL, RDFS, DCTERMS
 from string import Template
-from flask import Flask, escape, request, render_template
+from flask import Flask, escape, request, render_template, flash
 from markupsafe import Markup
 
 app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.debug')
+app.secret_key = b'*Y}P;s$&9*hDVw&f4KyXR,v.]cG/m_x>&9TQQ?:t!"'
 
 @app.route('/')
 def index():
 
 	ttlurl = request.args.get('ttlurl', "https://raw.githubusercontent.com/ukparliament/ontologies/master/procedure/procedure-ontology.ttl")
+	
+	if not ttlurl.startswith("https://raw.githubusercontent.com/ukparliament/ontologies/"):
+		ttlurl = "https://raw.githubusercontent.com/ukparliament/ontologies/master/procedure/procedure-ontology.ttl"
+		flash("Sorry: ttl2html needs an address it recognises. Here's the Procedure Ontology instead.")
+		
+	if not ttlurl.endswith(".ttl"):
+		ttlurl = "https://raw.githubusercontent.com/ukparliament/ontologies/master/procedure/procedure-ontology.ttl"
+		flash("Sorry: ttl2html needs a .ttl file it recognises. Here's the Procedure Ontology instead.")
 
 	ppr = rdflib.Namespace("http://parliament.uk/ontologies/procedure/")
 	g = rdflib.Graph()
 	
 	result = g.parse(data=requests.get(ttlurl).text, format="turtle")
 	
-	
 	classes = []
 
-	for s, p, o in g.triples((None, RDF.type, OWL.Class)):
-# 		isSubClass = g.value(s, RDFS.subClassOf)
-		
+	for s, p, o in g.triples((None, RDF.type, OWL.Class)):		
 		superclasses = []
 		
 		superclassobjects = g.objects(s, RDFS.subClassOf)
@@ -36,7 +42,6 @@ def index():
 #		  classes.append(f'<article class="class"><h3 id="{h3id}">{g.label(s)}</h3> {subClassNote}<p>{g.value(s, RDFS.comment)}</p></article>')
 		classes.append({'label':g.label(s), 'comment':g.value(s, RDFS.comment), 'superclasses':superclasses})
 	
-	properties = []
 	objectproperties = []
 
 	for s, p, o in g.triples((None, RDF.type, OWL.ObjectProperty)):
@@ -48,7 +53,6 @@ def index():
 # 		properties.append(f'<article class="property"><h3 id="{h3id}">{g.label(s)}</h3><ul><li>{domainstub} (domain) &rarr; {g.label(s)} (property) &rarr; {rangestub} (range)</li></ul><p>{g.value(s, RDFS.comment)}</p></article>')
 		objectproperties.append({'label':g.label(s), 'domain':domainstub, 'range':rangestub, 'comment':g.value(s, RDFS.comment)})
 
-	properties = ''.join(properties)
 	
 	namespaces = []
 
@@ -98,7 +102,6 @@ def index():
 	rights=Markup(rights),
 	description=Markup(description),
 	depiction=Markup(depiction),
-	properties=Markup(properties),
 	ttlurl=ttlurl,
 	classes=classes,
 	objectproperties=objectproperties,
