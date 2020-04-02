@@ -568,9 +568,9 @@ footer {
 
 
 article {
-margin:1rem 0;
-padding-bottom:0.5rem;
-border-bottom:thin dotted gray;
+margin:1.2rem 0;
+padding-bottom:0.6rem;
+border-bottom:thin dotted #ccc;
 }
 
 

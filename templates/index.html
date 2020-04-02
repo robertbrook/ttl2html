@@ -61,7 +61,9 @@
 
 {% for class in classes|sort(attribute='label') %}
 <article class="class">
-<h3><span class="subhead">Class</span> {{ class.label }}</h3>
+<h3>{{ class.label }}
+<br>
+<span class="subhead">Class</span></h3>
 
 {% if class.superclasses %}
 {% for superclass in class.superclasses %}
@@ -81,7 +83,9 @@
 {% for objectproperty in objectproperties|sort(attribute='label') %}
 
 <article class="property">
-<h3><span class="subhead">Object property</span> {{ objectproperty.label }}</h3>
+<h3>{{ objectproperty.label }}
+<br>
+<span class="subhead">Object property</span></h3>
 
 <p>Domain <strong>{{ objectproperty.domain }}</strong> &rarr; Object property <strong>{{ objectproperty.label }}</strong> &rarr; Range <strong>{{ objectproperty.range }}</strong></p>
 
