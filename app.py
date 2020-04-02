@@ -11,14 +11,14 @@ app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.debug')
 app.secret_key = b'*Y}P;s$&9*hDVw&f4KyXR,v.]cG/m_x>&9TQQ?:t!"'
 
-fallback_url = "https://raw.githubusercontent.com/ukparliament/ontologies/master/procedure/procedure-ontology.ttl"
+fallback_url = "https://ukparliament.github.io/ontologies/procedure/procedure-ontology.ttl"
 
 @app.route('/')
 def index():
 
 	ttlurl = request.args.get('ttlurl', fallback_url)
 	
-	if not ttlurl.startswith("https://raw.githubusercontent.com/ukparliament/ontologies/"):
+	if not ttlurl.startswith("https://ukparliament.github.io/ontologies/"):
 		ttlurl = fallback_url
 		flash("Sorry: ttl2html needs an address it recognises. Here's the Procedure Ontology instead.")
 		
