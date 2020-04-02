@@ -31,6 +31,9 @@ def index():
 	
 	result = g.parse(data=requests.get(ttlurl).text, format="turtle")
 	
+# 	for s, p, o in g.triples((None, OWL.imports, None)):
+# 		print(o)
+	
 	classes = []
 
 	for s, p, o in g.triples((None, RDF.type, OWL.Class)):		

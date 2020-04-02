@@ -55,11 +55,9 @@
 <p id="description">{{ description }}</p>
 {% endif %}
 
-{% if depiction %}
-<p><img id="depiction" src="{{ depiction }}"></p>
-{% endif %}
 
-<h2 id="classes">Classes</h2>
+<section id="classes">
+<h2>Classes</h2>
 
 {% for class in classes|sort(attribute='label') %}
 <article class="class">
@@ -76,8 +74,9 @@
 {% endif %}
 </article>
 {% endfor %}
-
-<h2 id="properties">Object properties</h2>
+</section>
+<section id="properties">
+<h2>Object properties</h2>
 
 {% for objectproperty in objectproperties|sort(attribute='label') %}
 
@@ -96,21 +95,11 @@
 
 </article>
 {% endfor %}
-
-<h2 id="namespaces">Namespaces</h2>
-
-
-{% for namespace in namespaces|sort(attribute='0') %}
-
-<p class="namespace"><strong>{{ namespace.0 }}</strong> {{ namespace.1 }}</p>
-
-{% endfor %}
-
-
+</section>
 
 {% if makers %}
-
-<h2 id="foaf"><abbr>FOAF</abbr></h2>
+<section id="foaf">
+<h2><abbr>FOAF</abbr></h2>
  
  <ul id="makers">
 {% for maker in makers|sort(attribute='name') %}
@@ -123,9 +112,26 @@
 
     {% endfor %}
     </ul>
-
+</section>
 {% endif %}
 
+<section id="namespaces">
+
+<h2>Namespaces</h2>
+
+
+{% for namespace in namespaces|sort(attribute='0') %}
+
+<p class="namespace"><strong>{{ namespace.0 }}</strong> {{ namespace.1 }}</p>
+
+{% endfor %}
+
+
+</section>
+
+{% if depiction %}
+<p><img id="depiction" src="{{ depiction }}"></p>
+{% endif %}
 
 <time id="created">Created {{ created }}</time>
 
