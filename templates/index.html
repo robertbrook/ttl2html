@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/local.css?{{ range(1, 1000000000) | random }}">
 <link rel='preconnect' href='https://ukparliament.github.io/'>
 </head>
-<body contenteditable="false">
+<body>
 <header>
 
 <p>Example ontologies:
@@ -29,10 +29,12 @@
 <a href="?ttlurl={{ root_url }}time-period/time-period-ontology.ttl">Time period</a>
 </p>
 
+
 <p>
       <form action="/" class="local">
       <input type="text" name="ttlurl" value="{{ ttlurl }}">
       <input type="submit" value="Generate HTML">
+      <button id="edit"><a href="javascript:document.body.contentEditable='true';">Edit</a></button>
       </form>
 </p>
 
