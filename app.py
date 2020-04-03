@@ -11,6 +11,8 @@ app = Flask(__name__)
 app.jinja_options['extensions'].append('jinja2.ext.debug')
 app.secret_key = b'*Y}P;s$&9*hDVw&f4KyXR,v.]cG/m_x>&9TQQ?:t!"'
 
+root_url = "https://ukparliament.github.io/ontologies/"
+
 fallback_url = "https://ukparliament.github.io/ontologies/procedure/procedure-ontology.ttl"
 
 @app.route('/')
@@ -18,7 +20,7 @@ def index():
 
 	ttlurl = request.args.get('ttlurl', fallback_url)
 	
-	if not ttlurl.startswith("https://ukparliament.github.io/ontologies/"):
+	if not ttlurl.startswith(root_url):
 		ttlurl = fallback_url
 		flash("Sorry: ttl2html needs an address it recognises. Here's the Procedure Ontology instead.")
 		
@@ -26,7 +28,7 @@ def index():
 		ttlurl = fallback_url
 		flash("Sorry: ttl2html needs a .ttl file it recognises. Here's the Procedure Ontology instead.")
 
-	ppr = rdflib.Namespace("http://parliament.uk/ontologies/procedure/")
+# 	ppr = rdflib.Namespace("http://parliament.uk/ontologies/procedure/")
 	g = rdflib.Graph()
 	
 	result = g.parse(data=requests.get(ttlurl).text, format="turtle")
@@ -98,7 +100,8 @@ def index():
 	classes=classes,
 	objectproperties=objectproperties,
 	namespaces=g.namespaces(),
-	makers = makers
+	makers = makers,
+	root_url=root_url
 	)
 
 if __name__ == "__main__":
