@@ -102,7 +102,8 @@ def index():
 	makers = makers,
 	root_url=root_url,
 	imports=g.triples((None, OWL.imports, None)),
-	equivalentClasses=g.triples((None, OWL.equivalentClass, None))
+	equivalentClasses=g.triples((None, OWL.equivalentClass, None)),
+	subClasses=g.triples((None, RDFS.subClassOf, None))
 	)
 
 if __name__ == "__main__":

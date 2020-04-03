@@ -58,6 +58,16 @@
 <p id="description">{{ description }}</p>
 {% endif %}
 
+{% if imports %}
+<section id="imports">
+<h2>Imported ontologies</h2>
+<ul>
+{% for import in imports|sort %}
+<li><a href="/?ttlurl={{ import.2 }}">{{ import.2 }}</a></li>
+{% endfor %}
+</ul>
+</section>
+{% endif %}
 
 {% if equivalentClasses %}
 <table id="equivalentclasses">
@@ -73,15 +83,18 @@
 </table>
 {% endif %}
 
-{% if imports %}
-<section id="imports">
-<h2>Imported ontologies</h2>
-<ul>
-{% for import in imports|sort %}
-<li><a href="/?ttlurl={{ import.2 }}">{{ import.2 }}</a></li>
+{% if subClasses %}
+<table id="subclasses">
+<h2>Subclasses</h2>
+
+{% for subClass in subClasses|sort %}
+<tr>
+<td>{{ subClass.0.split('/')[4:] }}</td>
+<td>{{ subClass.2.split('/')[4:] }}</td>
+</tr>
 {% endfor %}
-</ul>
-</section>
+
+</table>
 {% endif %}
 
 {% if classes %}
