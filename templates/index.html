@@ -10,7 +10,7 @@
 <body>
 <header>
 
-<p>Example ontologies:
+<p>Sample ontologies
 
 <a href="?ttlurl={{ root_url }}procedure/procedure-ontology.ttl">Procedure</a>
 ~
@@ -56,6 +56,21 @@
 
 {% if description != "None" %}
 <p id="description">{{ description }}</p>
+{% endif %}
+
+
+{% if equivalentClasses %}
+<table id="equivalentclasses">
+<h2>Equivalent classes</h2>
+
+{% for equivalentClass in equivalentClasses|sort %}
+<tr>
+<td>{{ equivalentClass.0.split('/')[4:] }}</td>
+<td>{{ equivalentClass.2.split('/')[4:] }}</td>
+</tr>
+{% endfor %}
+
+</table>
 {% endif %}
 
 {% if imports %}
@@ -153,15 +168,14 @@
 <p><a href="{{ depiction }}"><img id="depiction" src="{{ depiction }}"></a></p>
 {% endif %}
 
-<time id="created">Created {{ created }}</time>
+<p><time id="created">Created {{ created }}</time> <span id="copyright">&copy; {{ rights|e }}</span></p>
 
-<p id="copyright">&copy; {{ rights|e }}</p>
 </main>
 
 <footer>
-<p id="url">Source: <a href="{{ ttlurl }}">{{ ttlurl|e }}</a></p>
+<p id="url">Source <a href="{{ ttlurl }}">{{ ttlurl|e }}</a></p>
 
-<p>Visualise: <a href="http://www.visualdataweb.de/webvowl/#iri=https://api.parliament.uk/webvowl/#iri={{ ttlurl }}">WebVOWL</a>
+<p>Visualise <a href="http://www.visualdataweb.de/webvowl/#iri=https://api.parliament.uk/webvowl/#iri={{ ttlurl }}">WebVOWL</a>
 ~
 <a href="http://vowl.visualdataweb.org/webvowl/old/#iri={{ ttlurl }}">WebVOWL (Beta 0.5.2)</a></p>
 </footer>

@@ -101,7 +101,8 @@ def index():
 	namespaces=g.namespaces(),
 	makers = makers,
 	root_url=root_url,
-	imports=g.triples((None, OWL.imports, None))
+	imports=g.triples((None, OWL.imports, None)),
+	equivalentClasses=g.triples((None, OWL.equivalentClass, None))
 	)
 
 if __name__ == "__main__":
