@@ -28,7 +28,6 @@ def index():
 		ttlurl = fallback_url
 		flash("Sorry: ttl2html needs a .ttl file it recognises. Here's the Procedure Ontology instead.")
 
-# 	ppr = rdflib.Namespace("http://parliament.uk/ontologies/procedure/")
 	g = rdflib.Graph()
 	
 	result = g.parse(data=requests.get(ttlurl).text, format="turtle")
@@ -101,7 +100,8 @@ def index():
 	objectproperties=objectproperties,
 	namespaces=g.namespaces(),
 	makers = makers,
-	root_url=root_url
+	root_url=root_url,
+	imports=g.triples((None, OWL.imports, None))
 	)
 
 if __name__ == "__main__":

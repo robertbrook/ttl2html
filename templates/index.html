@@ -49,13 +49,25 @@
 </header>
 
 <main>
+
 <h1 id="title">{{ title }}</h1>
 
 {% if description != "None" %}
 <p id="description">{{ description }}</p>
 {% endif %}
 
+{% if imports %}
+<section id="imports">
+<h2>Imported ontologies</h2>
+<ul>
+{% for import in imports|sort %}
+<li><a href="/?ttlurl={{ import.2 }}">{{ import.2 }}</a></li>
+{% endfor %}
+</ul>
+</section>
+{% endif %}
 
+{% if classes %}
 <section id="classes">
 <h2>Classes</h2>
 
@@ -77,6 +89,10 @@
 </article>
 {% endfor %}
 </section>
+{% endif %}
+
+{% if objectproperties %}
+
 <section id="properties">
 <h2>Object properties</h2>
 
@@ -100,6 +116,7 @@
 </article>
 {% endfor %}
 </section>
+{% endif %}
 
 {% if makers %}
 <section id="foaf">
@@ -123,18 +140,15 @@
 
 <h2>Namespaces</h2>
 
-
 {% for namespace in namespaces|sort(attribute='0') %}
 
 <p class="namespace"><strong>{{ namespace.0 }}</strong> {{ namespace.1 }}</p>
 
 {% endfor %}
-
-
 </section>
 
 {% if depiction %}
-<p><img id="depiction" src="{{ depiction }}"></p>
+<p><a href="{{ depiction }}"><img id="depiction" src="{{ depiction }}"></a></p>
 {% endif %}
 
 <time id="created">Created {{ created }}</time>
