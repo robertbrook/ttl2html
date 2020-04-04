@@ -62,19 +62,29 @@
 
 {% if imports %}
 <section id="imports">
-<h2>Imported ontologies</h2>
+
+<details open>
+
+ <summary>List of imported ontologies</summary>
+
 <ul>
 {% for import in imports|sort %}
 <li><a href="/?ttlurl={{ import.2 }}">{{ import.2 }}</a></li>
 {% endfor %}
 </ul>
+
+</details>
+
+
+
 </section>
 {% endif %}
 
 {% if equivalentClasses %}
 <section id="equivalentclasses">
-<h2>Equivalent classes</h2>
+<details>
 
+ <summary>List of equivalent classes</summary>
 {% for equivalentClass in equivalentClasses|sort %}
 <p>
 <b>{{ equivalentClass.0.split('/')[4:][0] }}: {{ equivalentClass.0.split('/')[4:][1] }}</b>
@@ -82,14 +92,16 @@
 <b>{{ equivalentClass.2.split('/')[4:][0] }}: {{ equivalentClass.2.split('/')[4:][1] }}</b>
 </p>
 {% endfor %}
-
+</details>
 </section>
 {% endif %}
 
 {% if subClasses %}
 <section id="subclasses">
-<h2>Subclasses</h2>
 
+<details>
+
+ <summary>List of subclasses</summary>
 {% for subClass in subClasses|sort %}
 <p>
 <b>{{ subClass.0.split('/')[4:][0] }}: {{ subClass.0.split('/')[4:][1] }}</b>
@@ -97,7 +109,7 @@
 <b>{{ subClass.2.split('/')[4:][0] }}: {{ subClass.2.split('/')[4:][1] }}</b>
 </p>
 {% endfor %}
-
+</details>
 </section>
 {% endif %}
 
