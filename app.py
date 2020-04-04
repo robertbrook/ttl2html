@@ -13,7 +13,7 @@ app.secret_key = b'*Y}P;s$&9*hDVw&f4KyXR,v.]cG/m_x>&9TQQ?:t!"'
 
 root_url = "https://ukparliament.github.io/ontologies/"
 
-fallback_url = "https://ukparliament.github.io/ontologies/procedure/procedure-ontology.ttl"
+fallback_url = "https://ukparliament.github.io/ontologies/interface/interface.ttl"
 
 @app.route('/')
 def index():
@@ -22,11 +22,13 @@ def index():
 	
 	if not ttlurl.startswith(root_url):
 		ttlurl = fallback_url
-		flash("Sorry: ttl2html needs an address it recognises. Here's the Procedure Ontology instead.")
+		flash("ttl2html needs an address that starts with " + root_url)
+		flash("Here's the interface ontology instead.")
 		
 	if not ttlurl.endswith(".ttl"):
 		ttlurl = fallback_url
-		flash("Sorry: ttl2html needs a .ttl file it recognises. Here's the Procedure Ontology instead.")
+		flash("ttl2html needs a .ttl file.")
+		flash("Here's the interface ontology instead.")
 
 	g = rdflib.Graph()
 	

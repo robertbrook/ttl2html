@@ -587,4 +587,6 @@ h3 span.subhead {font-weight:normal;0.25rem;color:gray;}
 
 button#edit {float:right;}
 
+button.message {background-color:pink;cursor:inherit;}
+
 /* img#depiction {border:1pt dotted gray;padding:1.5rem;} */
