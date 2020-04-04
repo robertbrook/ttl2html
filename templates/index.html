@@ -78,7 +78,7 @@
 {% for equivalentClass in equivalentClasses|sort %}
 <p>
 <b>{{ equivalentClass.0.split('/')[4:][0] }}: {{ equivalentClass.0.split('/')[4:][1] }}</b>
-is equivalent to
+<br>is equivalent to</br>
 <b>{{ equivalentClass.2.split('/')[4:][0] }}: {{ equivalentClass.2.split('/')[4:][1] }}</b>
 </p>
 {% endfor %}
@@ -87,17 +87,18 @@ is equivalent to
 {% endif %}
 
 {% if subClasses %}
-<table id="subclasses">
+<section id="subclasses">
 <h2>Subclasses</h2>
 
 {% for subClass in subClasses|sort %}
-<tr>
-<td>{{ subClass.0.split('/')[4:] }}</td>
-<td>{{ subClass.2.split('/')[4:] }}</td>
-</tr>
+<p>
+<b>{{ subClass.0.split('/')[4:][0] }}: {{ subClass.0.split('/')[4:][1] }}</b>
+<br>is a subclass of<br>
+<b>{{ subClass.2.split('/')[4:][0] }}: {{ subClass.2.split('/')[4:][1] }}</b>
+</p>
 {% endfor %}
 
-</table>
+</section>
 {% endif %}
 
 {% if classes %}
