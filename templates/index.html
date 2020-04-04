@@ -186,16 +186,20 @@
 </section>
 {% endif %}
 
-<section id="namespaces">
+<!-- <section id="namespaces"> -->
 
-<h2>Namespaces</h2>
 
+<details>
+
+ <summary>Namespaces</summary>
+ 
 {% for namespace in namespaces|sort(attribute='0') %}
 
 <p class="namespace"><strong>{{ namespace.0 }}</strong> {{ namespace.1 }}</p>
 
 {% endfor %}
-</section>
+</details>
+<!-- </section> -->
 
 {% if depiction %}
 <p><a href="{{ depiction }}"><img id="depiction" src="{{ depiction }}"></a></p>
