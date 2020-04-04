@@ -32,6 +32,7 @@
  -->
 
 
+<!-- 
 <p>
       <form action="/" class="local">
       <input type="text" name="ttlurl" value="{{ ttlurl }}">
@@ -39,6 +40,7 @@
       <button id="edit"><a href="javascript:document.body.contentEditable='true';">Edit</a></button>
       </form>
 </p>
+ -->
 
 {% with messages = get_flashed_messages() %}
          {% if messages %}
@@ -60,12 +62,13 @@
 <p id="description">{{ description }}</p>
 {% endif %}
 
-{% if imports %}
+{% if importsum > 0 %}
+
 <section id="imports">
 
 <details open>
 
- <summary>List of imported ontologies</summary>
+ <summary>Imported ontologies</summary>
 
 <ul>
 {% for import in imports|sort %}
@@ -81,10 +84,11 @@
 {% endif %}
 
 {% if equivalentClasses %}
+
 <section id="equivalentclasses">
 <details>
 
- <summary>List of equivalent classes</summary>
+ <summary>Equivalent classes</summary>
 {% for equivalentClass in equivalentClasses|sort %}
 <p>
 <b>{{ equivalentClass.0.split('/')[4:][0] }}: {{ equivalentClass.0.split('/')[4:][1] }}</b>
@@ -101,7 +105,7 @@
 
 <details>
 
- <summary>List of subclasses</summary>
+ <summary>Subclasses</summary>
 {% for subClass in subClasses|sort %}
 <p>
 <b>{{ subClass.0.split('/')[4:][0] }}: {{ subClass.0.split('/')[4:][1] }}</b>

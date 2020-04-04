@@ -105,7 +105,8 @@ def index():
 	root_url=root_url,
 	imports=g.triples((None, OWL.imports, None)),
 	equivalentClasses=g.triples((None, OWL.equivalentClass, None)),
-	subClasses=g.triples((None, RDFS.subClassOf, None))
+	subClasses=g.triples((None, RDFS.subClassOf, None)),
+	importsum=sum(1 for _ in g.triples((None, OWL.imports, None)))
 	)
 
 if __name__ == "__main__":
