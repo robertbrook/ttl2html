@@ -63,9 +63,12 @@
 <p id="description">{{ description }}</p>
 {% endif %}
 
-{% if importsum > 0 %}
 
 
+{% if ttlurl.endswith('/interface/interface.ttl') %}
+
+
+{% if imports %}
 <details open id="imports">
 
  <summary>Imported ontologies</summary>
@@ -73,7 +76,7 @@
 <ul>
 {% for import in imports|sort %}
 {% if import.2.startswith(root_url) %}
-<li><a href="/?ttlurl={{ import.2 }}">{{ import.2.split('/')[5] }}</a></li>
+<li><a href="/?ttlurl={{ import.2 }}" title="{{ import.2 }}">{{ import.2.split('/')[5] }}</a></li>
 {% endif %}
 {% endfor %}
 </ul>
@@ -109,6 +112,8 @@
 </p>
 {% endfor %}
 </details>
+{% endif %}
+
 {% endif %}
 
 {% if classes %}
