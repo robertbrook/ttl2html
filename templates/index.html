@@ -85,8 +85,7 @@
 
 {% if equivalentClasses %}
 
-<section id="equivalentclasses">
-<details>
+<details id="equivalentclasses">
 
  <summary>Equivalent classes</summary>
 {% for equivalentClass in equivalentClasses|sort %}
@@ -97,13 +96,11 @@
 </p>
 {% endfor %}
 </details>
-</section>
 {% endif %}
 
 {% if subClasses %}
-<section id="subclasses">
 
-<details>
+<details id="subclasses">
 
  <summary>Subclasses</summary>
 {% for subClass in subClasses|sort %}
@@ -114,7 +111,6 @@
 </p>
 {% endfor %}
 </details>
-</section>
 {% endif %}
 
 {% if classes %}
@@ -169,8 +165,11 @@
 {% endif %}
 
 {% if makers %}
-<section id="foaf">
-<h2><abbr>FOAF</abbr></h2>
+
+ 
+ <details id="foaf">
+
+ <summary><abbr>FOAF</abbr></summary>
  
  <ul id="makers">
 {% for maker in makers|sort(attribute='name') %}
@@ -183,13 +182,12 @@
 
     {% endfor %}
     </ul>
-</section>
+    </details>
 {% endif %}
 
-<!-- <section id="namespaces"> -->
 
 
-<details>
+<details id="namespaces">
 
  <summary>Namespaces</summary>
  
@@ -199,7 +197,6 @@
 
 {% endfor %}
 </details>
-<!-- </section> -->
 
 {% if depiction %}
 <p><a href="{{ depiction }}"><img id="depiction" src="{{ depiction }}"></a></p>
