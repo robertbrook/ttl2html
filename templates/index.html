@@ -64,23 +64,20 @@
 
 {% if importsum > 0 %}
 
-<section id="imports">
 
-<details open>
+<details open id="imports">
 
  <summary>Imported ontologies</summary>
 
 <ul>
 {% for import in imports|sort %}
-<li><a href="/?ttlurl={{ import.2 }}">{{ import.2 }}</a></li>
+{% if import.2.startswith(root_url) %}
+<li><a href="/?ttlurl={{ import.2 }}">{{ import.2.split('/')[5] }}</a></li>
+{% endif %}
 {% endfor %}
 </ul>
 
 </details>
-
-
-
-</section>
 {% endif %}
 
 {% if equivalentClasses %}
