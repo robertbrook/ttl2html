@@ -53,6 +53,19 @@ def index():
                 "superclasses": superclasses,
             }
         )
+        
+    dataproperties = []
+    
+    for s, p, o in g.triples((None, RDF.type, OWL.DatatypeProperty)):
+    
+    	dataproperties.append(
+    		{
+                "label": g.label(s),
+				"comment": g.value(s, RDFS.comment),
+                "domain": g.value(s, RDFS.domain).split("/")[-1],
+                "range": g.value(s, RDFS.range).split("#")[-1],
+            }
+        )
 
     objectproperties = []
 
@@ -119,6 +132,7 @@ def index():
         imports=g.triples((None, OWL.imports, None)),
         equivalentClasses=g.triples((None, OWL.equivalentClass, None)),
         subClasses=g.triples((None, RDFS.subClassOf, None)),
+        dataproperties=dataproperties
     )
 
 

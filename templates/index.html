@@ -168,6 +168,23 @@
 </section>
 {% endif %}
 
+
+<section id="dataproperties">
+<h2>Data properties</h2>
+{% for dataproperty in dataproperties|sort(attribute='label') %}
+<article class="dataproperty">
+<h3>{{ dataproperty.label }}
+<br>
+<span class="subhead">Data property</span></h3>
+
+<p>Domain <strong>{{ dataproperty.domain }}</strong> &rarr; Data property <strong>{{ dataproperty.label }}</strong> &rarr; Range <strong>{{ dataproperty.range }}</strong></p>
+
+<p>{{ dataproperty.comment }}</p>
+
+</article>
+{% endfor %}
+</section>
+
 {% if makers %}
 
  
