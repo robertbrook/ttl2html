@@ -119,7 +119,6 @@ def index():
         imports=g.triples((None, OWL.imports, None)),
         equivalentClasses=g.triples((None, OWL.equivalentClass, None)),
         subClasses=g.triples((None, RDFS.subClassOf, None)),
-        importsum=sum(1 for _ in g.triples((None, OWL.imports, None))),
     )
 
 
