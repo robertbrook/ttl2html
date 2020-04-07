@@ -135,6 +135,10 @@ def index():
         dataproperties=dataproperties
     )
 
+@app.route('/ontologies/<path:subpath>')
+def show_subpath(subpath):
+    # show the subpath after /path/
+    return 'Subpath %s' % escape(subpath)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
