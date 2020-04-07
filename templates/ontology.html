@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<link rel="stylesheet" type="text/css" href="/static/css/local.css?{{ range(1, 1000000000) | random }}">
+<link rel='preconnect' href='https://ukparliament.github.io/'>
+</head>
+<body>
+<header>
+
+<!-- 
+<p>Sample ontologies
+
+<a href="?ttlurl={{ root_url }}procedure/procedure-ontology.ttl">Procedure</a>
+~
+<a href="?ttlurl={{ root_url }}treaty/treaty-ontology.ttl">Treaty</a>
+~
+<a href="?ttlurl={{ root_url }}agency/agency-ontology.ttl">Agency</a>
+~
+<a href="?ttlurl={{ root_url }}legislation/legislation-ontology.ttl">Legislation</a>
+~
+<a href="?ttlurl={{ root_url }}core/core-ontology.ttl">Core</a>
+~
+<a href="?ttlurl={{ root_url }}laying/laying-ontology.ttl">Laying</a>
+~
+<a href="?ttlurl={{ root_url }}interface/interface.ttl">Interface</a>
+~
+<a href="?ttlurl={{ root_url }}time-period/time-period-ontology.ttl">Time period</a>
+</p>
+ -->
+
+
+<!-- 
+<p>
+      <form action="/" class="local">
+      <input type="text" name="ttlurl" value="{{ ttlurl }}">
+      <input type="submit" value="Generate HTML">
+      <button id="edit"><a href="javascript:document.body.contentEditable='true';">Edit</a></button>
+      </form>
+</p>
+ -->
+
+{% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <section id="messages">
+               {% for message in messages %}
+               <button class="message"><strong>{{ message }}</strong></button>
+               {% endfor %}
+            </section>
+         {% endif %}
+      {% endwith %}
+      <nav><p><a href="/">ttl2html</a>
+      <br>source <a href="{{ ttlurl }}">{{ ttlurl|e }}</a></p>
+</nav>
+</header>
+
+<main>
+
+<h1 id="title">{{ title }}</h1>
+
+{% if description != "None" %}
+<p id="description">{{ description }}</p>
+{% endif %}
+
+
+
+{% if ttlurl.endswith('/interface/interface.ttl') %}
+
+
+{% if imports %}
+<details open id="imports">
+
+ <summary>Imported ontologies</summary>
+
+<ul>
+{% for import in imports|sort %}
+{% if import.2.startswith(root_url) %}
+<li><a href="/{{ import.2.split('/')[3:6]|join('/') }}" title="{{ import.2 }}">{{ import.2.split('/')[5] }}</a></li>
+{% endif %}
+{% endfor %}
+</ul>
+
+</details>
+{% endif %}
+
+{% if equivalentClasses %}
+
+<details id="equivalentclasses">
+
+ <summary>Equivalent classes</summary>
+{% for equivalentClass in equivalentClasses|sort %}
+<p>
+<b>{{ equivalentClass.0.split('/')[4:][0] }}: {{ equivalentClass.0.split('/')[4:][1] }}</b>
+<br>is equivalent to</br>
+<b>{{ equivalentClass.2.split('/')[4:][0] }}: {{ equivalentClass.2.split('/')[4:][1] }}</b>
+</p>
+{% endfor %}
+</details>
+{% endif %}
+
+{% if subClasses %}
+
+<details id="subclasses">
+
+ <summary>Subclasses</summary>
+{% for subClass in subClasses|sort %}
+<p>
+<b>{{ subClass.0.split('/')[4:][0] }}: {{ subClass.0.split('/')[4:][1] }}</b>
+<br>is a subclass of<br>
+<b>{{ subClass.2.split('/')[4:][0] }}: {{ subClass.2.split('/')[4:][1] }}</b>
+</p>
+{% endfor %}
+</details>
+{% endif %}
+
+{% endif %}
+
+{% if classes %}
+<section id="classes">
+<h2>Classes</h2>
+
+{% for class in classes|sort(attribute='label') %}
+<article class="class">
+<h3>{{ class.label }}
+<br>
+<span class="subhead">Class</span></h3>
+
+{% if class.superclasses %}
+{% for superclass in class.superclasses %}
+<p>Class <strong>{{ class.label }}</strong> &rarr; is a subclass of &rarr; Superclass <strong>{{ superclass }}</strong></p>
+{% endfor %}
+{% endif %}
+
+{% if class.comment %}
+<p>{{ class.comment }}</p>
+{% endif %}
+</article>
+{% endfor %}
+</section>
+{% endif %}
+
+{% if objectproperties %}
+
+<section id="properties">
+<h2>Object properties</h2>
+
+{% for objectproperty in objectproperties|sort(attribute='label') %}
+
+<article class="property">
+<h3>{{ objectproperty.label }}
+<br>
+<span class="subhead">Object property</span></h3>
+
+<p>Domain <strong>{{ objectproperty.domain }}</strong> &rarr; Object property <strong>{{ objectproperty.label }}</strong> &rarr; Range <strong>{{ objectproperty.range }}</strong></p>
+
+{% if objectproperty.superproperty %}
+<p>Object property <strong>{{ objectproperty.label }}</strong> &rarr; is a subproperty of &rarr; Object property <strong>{{ objectproperty.superproperty }}</strong></p>
+{% endif %}
+
+{% if objectproperty.comment %}
+<p>{{ objectproperty.comment }}</p>
+{% endif %}
+
+</article>
+{% endfor %}
+</section>
+{% endif %}
+
+
+<section id="dataproperties">
+<h2>Data properties</h2>
+{% for dataproperty in dataproperties|sort(attribute='label') %}
+<article class="dataproperty">
+<h3>{{ dataproperty.label }}
+<br>
+<span class="subhead">Data property</span></h3>
+
+<p>Domain <strong>{{ dataproperty.domain }}</strong> &rarr; Data property <strong>{{ dataproperty.label }}</strong> &rarr; Range <strong>{{ dataproperty.range }}</strong></p>
+
+<p>{{ dataproperty.comment }}</p>
+
+</article>
+{% endfor %}
+</section>
+
+{% if makers %}
+
+ 
+ <details id="foaf">
+
+ <summary><abbr>FOAF</abbr></summary>
+ 
+ <ul id="makers">
+{% for maker in makers|sort(attribute='name') %}
+
+<li class="maker">{{ maker.name|e }}
+        {% if maker.homepage|e != "None" %}
+        &mdash; <a href="{{ maker.homepage|e }}">{{ maker.homepage|e }}</a>
+        
+        {% endif %}</li> 
+
+    {% endfor %}
+    </ul>
+    </details>
+{% endif %}
+
+
+
+<details id="namespaces">
+
+ <summary>Namespaces</summary>
+ 
+{% for namespace in namespaces|sort(attribute='0') %}
+
+<p class="namespace"><strong>{{ namespace.0 }}</strong> {{ namespace.1 }}</p>
+
+{% endfor %}
+</details>
+
+{% if depiction %}
+<p><a href="{{ depiction }}"><img id="depiction" src="{{ depiction }}"></a></p>
+{% endif %}
+
+<p><time id="created">Created {{ created }}</time> <span id="copyright">&copy; {{ rights|e }}</span></p>
+
+</main>
+
+<footer>
+
+<p>Visualise <a href="http://www.visualdataweb.de/webvowl/#iri=https://api.parliament.uk/webvowl/#iri={{ ttlurl }}">WebVOWL</a>
+~
+<a href="http://vowl.visualdataweb.org/webvowl/old/#iri={{ ttlurl }}">WebVOWL (Beta 0.5.2)</a></p>
+</footer>
+</body>
+</html>
