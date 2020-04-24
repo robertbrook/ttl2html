@@ -45,7 +45,11 @@
 <ul>
 {% for import in imports|sort %}
 {% if import.2.startswith(root_url) %}
-<li><a href="/?ttlurl={{ import.2 }}" title="{{ import.2 }}">{{ import.2.split('/')[5] }}</a></li>
+
+
+
+<li><a href="{{ import.2[30:] }}" title="{{ import.2 }}">{{ import.2.split('/')[5] }}</a></li>
+
 {% endif %}
 {% endfor %}
 </ul>
