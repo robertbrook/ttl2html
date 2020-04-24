@@ -92,18 +92,21 @@
 {% for class in classes|sort(attribute='label') %}
 <article class="class">
 <h3>{{ class.label }}
-<br>
+
 <span class="subhead">Class</span></h3>
 
-{% if class.superclasses %}
-{% for superclass in class.superclasses %}
-<p>Class <strong>{{ class.label }}</strong> &rarr; is a subclass of &rarr; Superclass <strong>{{ superclass }}</strong></p>
-{% endfor %}
-{% endif %}
+
 
 {% if class.comment %}
 <p>{{ class.comment }}</p>
 {% endif %}
+
+{% if class.superclasses %}
+{% for superclass in class.superclasses %}
+<p><strong>{{ class.label }}</strong> is a subclass of <strong>{{ superclass }}</strong>.</p>
+{% endfor %}
+{% endif %}
+
 </article>
 {% endfor %}
 </section>
