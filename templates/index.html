@@ -4,43 +4,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ title }}</title>
-<link rel="stylesheet" type="text/css" href="/static/css/local.css?{{ range(1, 1000000000) | random }}">
+<link rel="stylesheet" type="text/css" href="/static/css/local.css">
 <link rel='preconnect' href='https://ukparliament.github.io/'>
 </head>
 <body>
 <header>
-
-<!-- 
-<p>Sample ontologies
-
-<a href="?ttlurl={{ root_url }}procedure/procedure-ontology.ttl">Procedure</a>
-~
-<a href="?ttlurl={{ root_url }}treaty/treaty-ontology.ttl">Treaty</a>
-~
-<a href="?ttlurl={{ root_url }}agency/agency-ontology.ttl">Agency</a>
-~
-<a href="?ttlurl={{ root_url }}legislation/legislation-ontology.ttl">Legislation</a>
-~
-<a href="?ttlurl={{ root_url }}core/core-ontology.ttl">Core</a>
-~
-<a href="?ttlurl={{ root_url }}laying/laying-ontology.ttl">Laying</a>
-~
-<a href="?ttlurl={{ root_url }}interface/interface.ttl">Interface</a>
-~
-<a href="?ttlurl={{ root_url }}time-period/time-period-ontology.ttl">Time period</a>
-</p>
- -->
-
-
-<!-- 
-<p>
-      <form action="/" class="local">
-      <input type="text" name="ttlurl" value="{{ ttlurl }}">
-      <input type="submit" value="Generate HTML">
-      <button id="edit"><a href="javascript:document.body.contentEditable='true';">Edit</a></button>
-      </form>
-</p>
- -->
 
 {% with messages = get_flashed_messages() %}
          {% if messages %}
@@ -190,7 +158,7 @@
  
  <details id="foaf">
 
- <summary><abbr>FOAF</abbr></summary>
+ <summary><abbr title="Friend Of A Friend">FOAF</abbr></summary>
  
  <ul id="makers">
 {% for maker in makers|sort(attribute='name') %}
