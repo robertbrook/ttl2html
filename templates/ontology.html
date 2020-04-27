@@ -31,7 +31,9 @@
 <p id="description">{{ description }}</p>
 {% endif %}
 
-
+{% if depiction %}
+<p><a href="{{ depiction }}"><img id="depiction" src="{{ depiction }}"></a></p>
+{% endif %}
 
 {% if ttlurl.endswith('/interface/interface.ttl') %}
 
@@ -196,9 +198,7 @@
 {% endfor %}
 </details>
 
-{% if depiction %}
-<p><a href="{{ depiction }}"><img id="depiction" src="{{ depiction }}"></a></p>
-{% endif %}
+
 
 <p><time id="created">Created {{ created }}</time> <span id="copyright">&copy; {{ rights|e }}</span></p>
 
