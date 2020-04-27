@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ title }}</title>
 <link rel="stylesheet" type="text/css" href="/static/css/local.css">
-<link rel='preconnect' href='https://ukparliament.github.io/'>
+<link rel='preconnect' href='https://ukparliament.github.io/ontologies/'>
 </head>
 <body>
 <header>
@@ -19,8 +19,7 @@
             </section>
          {% endif %}
       {% endwith %}
-      <nav><p><a href="/">ttl2html</a>
-      <br>source <a href="{{ ttlurl }}">{{ ttlurl|e }}</a></p>
+      <nav><p><a href="/">ttl2html</a></p>
 </nav>
 </header>
 
@@ -207,9 +206,9 @@
 
 <footer>
 
-<p>Visualise <a href="http://www.visualdataweb.de/webvowl/#iri=https://api.parliament.uk/webvowl/#iri={{ ttlurl }}">WebVOWL</a>
-~
-<a href="http://vowl.visualdataweb.org/webvowl/old/#iri={{ ttlurl }}">WebVOWL (Beta 0.5.2)</a></p>
+<p>Source <a href="{{ ttlurl }}">{{ ttlurl|e }}</a></p>
+
+<p>Visualise <a href="http://www.visualdataweb.de/webvowl/#iri={{ ttlurl }}">WebVOWL</a></p>
 </footer>
 </body>
 </html>

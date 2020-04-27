@@ -237,7 +237,7 @@ def index():
             makers.append(i)
 
     return render_template(
-        "index.html",
+        "ontology.html",
         title=Markup(title),
         created=Markup(created),
         rights=Markup(rights),
