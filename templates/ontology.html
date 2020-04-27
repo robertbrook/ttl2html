@@ -19,8 +19,7 @@
             </section>
          {% endif %}
       {% endwith %}
-      <nav><p><a href="/">ttl2html</a></p>
-</nav>
+      <nav><a href="/">ttl2html</a></nav>
 </header>
 
 <main>
@@ -32,7 +31,7 @@
 {% endif %}
 
 {% if depiction %}
-<p><a href="{{ depiction }}"><img id="depiction" src="{{ depiction }}"></a></p>
+<a href="{{ depiction }}"><img id="depiction" src="{{ depiction }}"></a>
 {% endif %}
 
 {% if ttlurl.endswith('/interface/interface.ttl') %}
