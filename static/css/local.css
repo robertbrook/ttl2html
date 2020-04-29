@@ -70,7 +70,7 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.4;
 
-  max-width: 800px;
+  max-width: 40rem;
   margin: 20px auto;
   padding: 0 10px;
 
@@ -573,8 +573,6 @@ margin:1.2rem 0;
 padding-bottom:0.6rem;
 border-bottom:thin dotted #ccc;
 }
-
-
 
 form.local input[type=text] {display:inline;width:100%;}
 

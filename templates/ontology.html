@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ title }}</title>
-<link rel="stylesheet" type="text/css" href="/static/css/local.css">
+<link rel="stylesheet" type="text/css" href="/static/css/local.css?{{ range(1, 100000000000) | random }}">
 <link rel='preconnect' href='https://ukparliament.github.io/ontologies/'>
 </head>
 <body>
@@ -19,7 +19,7 @@
             </section>
          {% endif %}
       {% endwith %}
-      <nav><a href="/">ttl2html</a></nav>
+      <nav><strong><a href="/">ttl2html</a></strong></nav>
 </header>
 
 <main>
@@ -105,7 +105,7 @@
 
 {% if class.superclasses %}
 {% for superclass in class.superclasses %}
-<p><strong>{{ class.label }}</strong> is a subclass of <strong>{{ superclass }}</strong>.</p>
+<p>{{ superclass }} (superclass) &rarr; {{ class.label }} (class)</p>
 {% endfor %}
 {% endif %}
 
@@ -123,12 +123,7 @@
 
 <article class="property">
 
-<h3>{{ objectproperty.label }}
-
-<span class="subhead">object property</span></h3>
-
-<p>{{ objectproperty.domain }} &rarr; <strong>{{ objectproperty.label }}</strong> &rarr; {{ objectproperty.range }}
-</p>
+<h3>{{ objectproperty.label }} <span class="subhead">object property</span></h3>
 
 {% if objectproperty.superproperty %}
 <p>Object property <strong>{{ objectproperty.label }}</strong> &rarr; is a subproperty of &rarr; Object property <strong>{{ objectproperty.superproperty }}</strong></p>
@@ -137,6 +132,12 @@
 {% if objectproperty.comment %}
 <p>{{ objectproperty.comment }}</p>
 {% endif %}
+
+<p>{{ objectproperty.domain }} (domain)
+&rarr;
+{{ objectproperty.label }} (object property)
+&rarr;
+{{ objectproperty.range }} (range)</p>
 
 </article>
 {% endfor %}
@@ -152,9 +153,10 @@
 <article class="dataproperty">
 <h3>{{ dataproperty.label }} <span class="subhead">data property</span></h3>
 
-<p>{{ dataproperty.domain }} &rarr; <strong>{{ dataproperty.label }}</strong> &rarr; {{ dataproperty.range }}</p>
-
 <p>{{ dataproperty.comment }}</p>
+
+<p>{{ dataproperty.domain }} (domain) &rarr; {{ dataproperty.label }} &rarr; {{ dataproperty.range }} (range)</p>
+
 
 </article>
 {% endfor %}
