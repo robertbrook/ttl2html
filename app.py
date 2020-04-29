@@ -51,6 +51,7 @@ def show_subpath(subpath):
             {
                 "label": g.label(s),
                 "comment": g.value(s, RDFS.comment),
+                "isDefinedBy": g.value(s, RDFS.isDefinedBy),
                 "superclasses": superclasses,
             }
         )

@@ -97,10 +97,8 @@
 <article class="class">
 <h3>{{ class.label }}
 
-<span class="subhead">Class</span></h3>
-
-
-
+<span class="subhead">class</span></h3>
+<!-- {{ class.isDefinedBy }} -->
 {% if class.comment %}
 <p>{{ class.comment }}</p>
 {% endif %}
@@ -124,11 +122,13 @@
 {% for objectproperty in objectproperties|sort(attribute='label') %}
 
 <article class="property">
-<h3>{{ objectproperty.label }}
-<br>
-<span class="subhead">Object property</span></h3>
 
-<p>Domain <strong>{{ objectproperty.domain }}</strong> &rarr; Object property <strong>{{ objectproperty.label }}</strong> &rarr; Range <strong>{{ objectproperty.range }}</strong></p>
+<h3>{{ objectproperty.label }}
+
+<span class="subhead">object property</span></h3>
+
+<p>{{ objectproperty.domain }} &rarr; <strong>{{ objectproperty.label }}</strong> &rarr; {{ objectproperty.range }}
+</p>
 
 {% if objectproperty.superproperty %}
 <p>Object property <strong>{{ objectproperty.label }}</strong> &rarr; is a subproperty of &rarr; Object property <strong>{{ objectproperty.superproperty }}</strong></p>
@@ -148,12 +148,11 @@
 <section id="dataproperties">
 <h2>Data properties</h2>
 {% for dataproperty in dataproperties|sort(attribute='label') %}
-<article class="dataproperty">
-<h3>{{ dataproperty.label }}
-<br>
-<span class="subhead">Data property</span></h3>
 
-<p>Domain <strong>{{ dataproperty.domain }}</strong> &rarr; Data property <strong>{{ dataproperty.label }}</strong> &rarr; Range <strong>{{ dataproperty.range }}</strong></p>
+<article class="dataproperty">
+<h3>{{ dataproperty.label }} <span class="subhead">data property</span></h3>
+
+<p>{{ dataproperty.domain }} &rarr; <strong>{{ dataproperty.label }}</strong> &rarr; {{ dataproperty.range }}</p>
 
 <p>{{ dataproperty.comment }}</p>
 
